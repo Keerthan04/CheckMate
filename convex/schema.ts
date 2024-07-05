@@ -70,23 +70,24 @@ const authTables = {
     .index("credentialID", ["credentialID"]),
 };
 
-export default defineSchema({
+export default defineSchema({//creating our tables
   ...authTables,
   todos: defineTable({
-    userId: v.id("users"),
+    userId: v.id("users"),//v.id makes association to that table
     projectId: v.id("projects"),
     labelId: v.id("labels"),
     taskName: v.string(),
-    description: v.optional(v.string()),
+    description: v.optional(v.string()),//making it optional
     dueDate: v.number(),
     priority: v.optional(v.float64()),
     isCompleted: v.boolean(),
     embedding: v.optional(v.array(v.float64())),
-  }).vectorIndex("by_embedding", {
-    vectorField: "embedding",
-    dimensions: 1536,
-    filterFields: ["userId"],
   }),
+  // .vectorIndex("by_embedding", {
+  //   vectorField: "embedding",
+  //   dimensions: 1536,
+  //   filterFields: ["userId"],
+  // }),
   subTodos: defineTable({
     userId: v.id("users"),
     projectId: v.id("projects"),
@@ -98,15 +99,16 @@ export default defineSchema({
     priority: v.optional(v.float64()),
     isCompleted: v.boolean(),
     embedding: v.optional(v.array(v.float64())),
-  }).vectorIndex("by_embedding", {
-    vectorField: "embedding",
-    dimensions: 1536,
-    filterFields: ["userId"],
   }),
+  // .vectorIndex("by_embedding", {
+  //   vectorField: "embedding",
+  //   dimensions: 1536,
+  //   filterFields: ["userId"],
+  // }),
   labels: defineTable({
     userId: v.union(v.id("users"), v.null()),
     name: v.string(),
-    type: v.union(v.literal("user"), v.literal("system")),
+    type: v.union(v.literal("user"), v.literal("system")),//telling can be created by users or system generated
   }),
   projects: defineTable({
     userId: v.union(v.id("users"), v.null()),
@@ -114,3 +116,4 @@ export default defineSchema({
     type: v.union(v.literal("user"), v.literal("system")),
   }),
 });
+
