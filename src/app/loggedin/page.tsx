@@ -1,10 +1,16 @@
-import UserProfile from "@/components/checkMate/UserProfile";
+import UserProfile from "@/components/nav/UserProfile";
+import MobileNav from "@/components/nav/mobile-nav";
+import Sidebar from "@/components/nav/side-bar";
 export default function Home() {
-  
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
-      <h1>Logged in</h1>
-      <UserProfile/>
-    </main>
+    <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+      <Sidebar />
+      <div className="flex flex-col">
+        <MobileNav />
+        <main className="flex flex-1 flex-col gap-4 p-4 lg:px-8">
+          
+        </main>
+      </div>
+    </div>
   );
 }
