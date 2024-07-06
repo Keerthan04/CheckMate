@@ -1,2 +1,2 @@
 ## CheckMate
-A Ai powered todolist Application
+An Ai powered todolist Application
