@@ -1,20 +1,24 @@
-'use client'
-import { useQuery } from "convex/react";
+"use client";
 import { api } from "../../../convex/_generated/api";
+import { useQuery } from "convex/react";
 import { Checkbox } from "../ui/checkbox";
+import Task from "./task";
+import { CircleCheckBig } from "lucide-react";
 import Todos from "./todos";
 import CompletedTodos from "./CompletedTodos";
+import { AddTaskWrapper } from "../add-tasks/add-task-button";
 
 export default function TodoList() {
-  //to call from client using useQuery from the convex.react package
-  const todos = useQuery(api.todos.get) ?? [];//if todos is undefined, then it will be an empty array
-   //querying what we wrote in todos
-  //since useQuery shd be a use client
+  const todos = useQuery(api.todos.get) ?? [];
   const completedTodos = useQuery(api.todos.completedTodos) ?? [];
-  const inCompleteTodos = useQuery(api.todos.incompleteTodos) ?? [];
-  const totalTodos = useQuery(api.todos.totalTodos)?? 0;
-  if (todos === undefined || completedTodos===undefined || inCompleteTodos === undefined) {
-    //meaning still loading
+  const inCompleteTodos = useQuery(api.todos.inCompleteTodos) ?? [];
+  const totalTodos = useQuery(api.todos.totalTodos) ?? 0;
+
+  if (
+    todos === undefined ||
+    completedTodos === undefined ||
+    inCompleteTodos === undefined
+  ) {
     <p>Loading...</p>;
   }
   return (
@@ -25,6 +29,7 @@ export default function TodoList() {
       <div className="flex flex-col gap-1 py-4">
         <Todos items={inCompleteTodos} />
       </div>
+      <AddTaskWrapper />
       <div className="flex flex-col gap-1 py-4">
         <Todos items={completedTodos} />
       </div>
@@ -32,4 +37,3 @@ export default function TodoList() {
     </div>
   );
 }
-
